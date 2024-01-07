@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { useState, useEffect, use } from "react"
+import { useState, useEffect, use } from "next/image"
 import axios from "axios"
 
 // import require images
