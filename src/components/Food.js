@@ -1,5 +1,10 @@
 'use client'
 import Image from "next/image"
+import { CiForkAndKnife } from "react-icons/ci";
+import { FaStar } from "react-icons/fa6";
+import { GrBike } from "react-icons/gr";
+
+
 
 export default function Food(props){
     return (
@@ -11,15 +16,15 @@ export default function Food(props){
             </div>
             <div>
                 <div>
-                    <Image src={star} alt="rate" />
+                    <FaStar color="yellow" />
                     <p>{props.rate} ({props.number})</p>
                 </div>
                 <div>
-                    <Image src={props.fork} alt="fork" />
+                    <CiForkAndKnife />
                     <p>{props.name}</p>
                 </div>
                 <div>
-                    <Image src={bike} alt="bike" />
+                    <GrBike />
                     <p>{props.time}</p>
                 </div>
             </div>

@@ -1,8 +1,9 @@
 'use client'
-import Body from "@/components/HomeBody";
+import Body from "@/components/Body";
 import LeftSideBar from "@/components/LeftSideBar";
 import Navigation from "@/components/Navigation";
 import { useState, useEffect } from "react"
+
 
 export default function Home() {
   const [showBody, setShowBody] = useState(true)
