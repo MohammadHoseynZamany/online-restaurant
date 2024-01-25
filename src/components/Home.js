@@ -8,7 +8,7 @@ import PopularCat from "@public/catPopular.png"
 import { FaGreaterThan } from "react-icons/fa6";
 
 
-export default function Body() {
+export default function Home() {
     return (
         <div>
             <div>
@@ -25,16 +25,7 @@ export default function Body() {
                         </div>
                     </div>
                 </div>
-                <div className="flex justify-between overflow-x-scroll w-[90vw] lg:w-[90vw]">
-                    <div>
-                        <Category image={PopularCat} title="Popular" options="268" />
-                    </div>
-                    <div>
-                        <Category image={PopularCat} title="Popular" options="268" />
-                    </div>
-                    <div>
-                        <Category image={PopularCat} title="Popular" options="268" />
-                    </div>
+                <div className="flex justify-between overflow-x-auto w-[90vw] lg:w-[90vw] [&::-webkit-scrollbar]:hidden">
                     <div>
                         <Category image={PopularCat} title="Popular" options="268" />
                     </div>
@@ -69,8 +60,17 @@ export default function Body() {
                         </div>
                     </div>
                 </div>
-                <div>
-                    <Restaurant image={BurgerKingRes} name="Burger king" rate="4.8" count="1,873" food="Burger" money={1} delivery="Free" distance="4.3 km" />
+                <div className="flex flex-col">
+                    <div className="flex">
+                        <Restaurant image={BurgerKingRes} name="Burger king" rate="4.8" count="1,873" food="Burger" money={1} delivery="Free" distance="4.3 km" />
+                        <Restaurant image={BurgerKingRes} name="Burger king" rate="4.8" count="1,873" food="Burger" money={1} delivery="Free" distance="4.3 km" />
+                        <Restaurant image={BurgerKingRes} name="Burger king" rate="4.8" count="1,873" food="Burger" money={1} delivery="Free" distance="4.3 km" />
+                    </div>
+                    <div className="flex">
+                        <Restaurant image={BurgerKingRes} name="Burger king" rate="4.8" count="1,873" food="Burger" money={1} delivery="Free" distance="4.3 km" />
+                        <Restaurant image={BurgerKingRes} name="Burger king" rate="4.8" count="1,873" food="Burger" money={1} delivery="Free" distance="4.3 km" />
+                        <Restaurant image={BurgerKingRes} name="Burger king" rate="4.8" count="1,873" food="Burger" money={1} delivery="Free" distance="4.3 km" />
+                    </div>
                 </div>
             </div>
         </div>

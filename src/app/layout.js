@@ -10,7 +10,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className='[&::-webkit-scrollbar]:hidden'>
       <body className={inter.className}>{children}</body>
     </html>
   )

@@ -1,11 +1,11 @@
 'use client'
-import Body from "@/components/Body";
+import Home from "@/components/Home";
 import LeftSideBar from "@/components/LeftSideBar";
 import Navigation from "@/components/Navigation";
 import { useState, useEffect } from "react"
 
 
-export default function Home() {
+export default function Main() {
   const [showBody, setShowBody] = useState(true)
   useEffect(()=>{
     if (!showBody) {
@@ -17,10 +17,10 @@ export default function Home() {
   return (
     <div className="flex">
       <LeftSideBar className="flex-1"/>
-      <div className="flex-1">
+      <div className="flex-1 mt-3 mb-20 mx-[0.1vw]">
         <Navigation closeOptions={showBody} setCloseOptions={setShowBody} />
         <div id="body-container">
-          <Body />
+          <Home />
         </div>
       </div>
     </div>

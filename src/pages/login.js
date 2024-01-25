@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { useState, useEffect, use } from "next/image"
+import { useState, useEffect } from "react"
 import axios from "axios"
 
 // import require images
@@ -50,7 +50,6 @@ export default function SignUp() {
     }, [windowDimensions.width])
 
     const [passWordH, setPass] = useState()
-    const [userNameH, setUserName] = useState()
     const [emailH, setEmail] = useState()
 
     function getElementValue(id){
@@ -58,54 +57,74 @@ export default function SignUp() {
         return val
     }
 
+        
     function inputFormData(){
         const password = getElementValue("password")
         const username = getElementValue("userName")
         const email = getElementValue("email")
-        setPass(document.getElementById("password").value)
-        setUserName(document.getElementById("userName").value)
-        setEmail(document.getElementById("email").value)
+        setPass(password)
+        setUserName(username)
+        setEmail(email)
         }
 
-    function noInput(id){
-        console.log(`Please input ${id} and then try to sign up`)
-    }
+    const [emailError, setEmailEr] = useState()
+    const [userNameError, setUserNameEr] = useState()
+    const [passwordError, setPassEr] = useState()
 
     async function postData(data){
-        // try{
-        //     res = await axios.post(
-        //         "http://127.0.0.1:8000/users/register/",
-        //         data
-        //     )
-        //     console.log("response", res)
-        // } catch(err){
-        //     console.log("error", err.massage)
-        // }
+        try{
+            const res = await axios.post(
+                "http://127.0.0.1:8000/users/register/",
+                data
+            )
+            console.log("response", res)
+        } catch(err){
+            if (err.response){
+                setEmailEr(err.response.data.email)
+                setUserNameEr(err.response.data.full_name)
+                setPassEr(err.response.data.password)
+            }
+        }
 
     }
     
-    function onSubmit(){
-        inputFormData()
+    async function  onSubmit(){
+        let flag = true
+        await inputFormData()
         let reqBody = {}
         if (passWordH !== ""){
             reqBody["password"] = passWordH
+            setPassEr()
         } else {
-            noInput("password")
+            setPassEr("This field is required.")
+            flag = false
         }
+        
+        if (userNameH !== ""){
+            reqBody["full_name"] = userNameH
+            setUserNameEr()
+        } else {
+            setUserNameEr("This field is required.")
+            flag = false
+        }
+        
         if (emailH !== ""){
             reqBody["email"] = emailH
+            setEmailEr()
         } else {
-            noInput("email")
+            setEmailEr("This field is required.")
+            flag = false
         }        
-        
-        postData(reqBody)
+        if (flag){
+            postData(reqBody)
+        }
     }
 
     return (
-        <div className="md:flex text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl font-semibold overflow-hidden">
+        <div className="block md:flex text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl font-semibold overflow-hidden">
             <Image src={signUpImage} alt="signUp" className="md:rounded-r-3xl md:rounded-b-none md:rounded-br-3xl rounded-b-3xl md:h-screen h-56 md:w-1/2 w-screen object-cover md:max-w-md" priority={true} />
-            <div className="self-center w-3/5 flex justify-center">
-                <div className="ml-4">
+            <div className="self-center flex justify-center">
+                <div className="px-6 mt-6 w-svw md:w-auto md:ml-4 md:block mb-6">
                     <h2 className="text-3xl font-medium">
                         Create an account
                     </h2>
@@ -113,20 +132,30 @@ export default function SignUp() {
                         Please create an account to continue using our service
                     </p>
                     <div className="flex m-10">
-                        <Image src={EmailIcon} alt="Email" className="w-1/6"/>
-                        <div>
-                            <p className="ml-3">EMAIL ADDRESS</p>
-                            <input type="email" className="border-b-2 ml-3 py-1" placeholder="markclarke@gmail.com" id="email" />
+                        <Image src={NameIcon} alt="Name" className="md:w-1/6" />
+                        <div className="w-full">
+                            <p className="ml-3">FULL NAME</p>
+                            <input type="text" className="border-b-2 ml-3 py-1 w-full" placeholder="Mark Clarke" id="userName" />
                         </div>
+                        <p className="text-red-600 self-center pl-1 text-xs">{userNameError}</p>
                     </div>
                     <div className="flex m-10">
-                        <Image src={PassIcon} alt="pass" className="w-1/6" />
-                        <div>
-                            <p className="ml-3">PASSWORD</p>
-                            <input type="password" className="border-b-2 ml-3 py-1" placeholder="******" id="password" />
+                        <Image src={EmailIcon} alt="Email" className="md:w-1/6"/>
+                        <div className="w-full">
+                            <p className="ml-3">EMAIL ADDRESS</p>
+                            <input type="email" className="border-b-2 ml-3 py-1 w-full" placeholder="markclarke@gmail.com" id="email" />
                         </div>
+                        <p className="text-red-600 self-center pl-1 text-xs">{emailError}</p>
                     </div>
-                    <button className="bg-violet-900 text-white rounded-lg w-full max-w-lg h-10 lg:h-12" onClick={onSubmit}>Create an account</button>
+                    <div className="flex m-10">
+                        <Image src={PassIcon} alt="pass" className="md:w-1/6" />
+                        <div className="w-full">
+                            <p className="ml-3">PASSWORD</p>
+                            <input type="password" className="border-b-2 ml-3 py-1 w-full" placeholder="******" id="password" />
+                        </div>
+                        <p className="text-red-600 self-center pl-1 text-xs">{passwordError}</p>
+                    </div>
+                    <button className="bg-violet-900 text-white rounded-lg w-full md:w-full md:max-w-lg h-10 lg:h-12" onClick={onSubmit}>Create an account</button>
                     <div className="text-center mt-4">
                         <p className="inline-block text-gray-500">Already have an account? </p>
                         <a className="inline-block text-red-500 font-medium ml-1"> Sign in</a>

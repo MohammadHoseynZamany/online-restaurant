@@ -52,16 +52,18 @@ export default function LeftSideBar(){
                             </p>
                         </div>
                     </div>
-                    <div className="flex">
-                        <Image src={Profile} alt="profile" className="lg:mr-[1vw] w-full"/>
-                        <div className="flex-">
-                            <h3 className="hidden w-[1vw] md:text-sm lg:text-lg lg:inline-block m-auto text-base">
-                                Mark Clarke
-                            </h3>
-                            <p className="w-[1vw] text-xs hidden lg:inline-block">
-                                markclarke@gmail.com
-                            </p>
+                    <div className="flex content-between">
+                        <Image src={Profile} alt="profile" className="my-auto"/>
+                        <div className="text-center my-auto">
+                            <h3 className="hidden md:text-sm lg:text-l lg:inline-block text-base">
+                                    Mark Clarke
+                                </h3>
                         </div>
+                        {/* <div className="flex flex-col w-full mx-auto px-0"> */}
+                            {/* <p className="w-full text-xs hidden lg:inline-block mx-auto px-0">
+                                markclarke@gmail.com
+                            </p> */}
+                        {/* </div> */}
                     </div>
             </div>
         </div>

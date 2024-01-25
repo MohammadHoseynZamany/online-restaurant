@@ -10,7 +10,7 @@ import { redirect } from "next/dist/server/api-utils";
 
 export default function Restaurant(props){
     return (
-        <div className="flex">
+        <div className="flex-1 flex mx-[2.5vw] w-[20vw]">
             <div className="bg-gray-100 rounded-lg">
                 <Image src={ props.image } alt={ props.name } />
             </div>
