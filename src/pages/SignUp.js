@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 import { useState, useEffect } from "react"
 import axios from "axios"
 
@@ -159,7 +160,7 @@ export default function SignUp() {
                     <button className="bg-violet-900 text-white rounded-lg w-full md:w-full md:max-w-lg h-10 lg:h-12" onClick={onSubmit}>Create an account</button>
                     <div className="text-center mt-4">
                         <p className="inline-block text-gray-500">Already have an account? </p>
-                        <a className="inline-block text-red-500 font-medium ml-1"> Sign in</a>
+                        <Link href="/login" className="inline-block text-red-500 font-medium ml-1"> Sign in</Link>
                     </div>
                 </div>
             </div>

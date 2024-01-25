@@ -1,22 +1,22 @@
 import Image from "next/image"
+import Link from "next/link"
 import { useState, useEffect } from "react"
 import axios from "axios"
 
 // import require images
 import signupImage from "@public/signUp.png"
 import signupTabImage from "@public/signUpTab.png"
-import NameIcon from "@public/64px.png"
 import EmailIcon from "@public/Email.png"
 import PassIcon from "@public/password.png"
+import RootLayout from "@/app/layout"
 
 //import global css
 import '@/app/globals.css'
 
 
-
-export default function SignUp() {
-
+export default function SignUp(props) {
     const hasWindow = typeof window !== 'undefined';
+    console.log(props)
 
     function getWindowDimensions() {
         const width = hasWindow ? window.innerWidth : null;
@@ -60,29 +60,33 @@ export default function SignUp() {
         
     function inputFormData(){
         const password = getElementValue("password")
-        const username = getElementValue("userName")
         const email = getElementValue("email")
         setPass(password)
-        setUserName(username)
         setEmail(email)
         }
 
     const [emailError, setEmailEr] = useState()
-    const [userNameError, setUserNameEr] = useState()
     const [passwordError, setPassEr] = useState()
+//save response data
+    const [authorize, setAuthorize] = useState()
+    const [access, setAccess] = useState()
+    const [refresh, setRefresh] = useState()
+
 
     async function postData(data){
         try{
             const res = await axios.post(
-                "http://127.0.0.1:8000/users/register/",
+                "http://127.0.0.1:8000/users/login/",
                 data
-            )
-            console.log("response", res)
+            ).then((res) =>  {
+            getRes(res)
+            })
         } catch(err){
             if (err.response){
                 setEmailEr(err.response.data.email)
-                setUserNameEr(err.response.data.full_name)
                 setPassEr(err.response.data.password)
+                setAuthorize(err.response.statusText)
+                console.log(authorize)
             }
         }
 
@@ -99,15 +103,6 @@ export default function SignUp() {
             setPassEr("This field is required.")
             flag = false
         }
-        
-        if (userNameH !== ""){
-            reqBody["full_name"] = userNameH
-            setUserNameEr()
-        } else {
-            setUserNameEr("This field is required.")
-            flag = false
-        }
-        
         if (emailH !== ""){
             reqBody["email"] = emailH
             setEmailEr()
@@ -120,25 +115,24 @@ export default function SignUp() {
         }
     }
 
+    async function getRes(res){
+        await setAccess(res.data.access)
+        await setRefresh(res.data.refresh)
+        await setAuthorize(res.statusText)
+        console.log(`${access}\n${refresh}\n${authorize}`)
+    }
+
     return (
         <div className="block md:flex text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl font-semibold overflow-hidden">
             <Image src={signUpImage} alt="signUp" className="md:rounded-r-3xl md:rounded-b-none md:rounded-br-3xl rounded-b-3xl md:h-screen h-56 md:w-1/2 w-screen object-cover md:max-w-md" priority={true} />
             <div className="self-center flex justify-center">
                 <div className="px-6 mt-6 w-svw md:w-auto md:ml-4 md:block mb-6">
                     <h2 className="text-3xl font-medium">
-                        Create an account
+                        Welcome!
                     </h2>
                     <p className="text-gray-400 mt-1">
-                        Please create an account to continue using our service
+                        Sign in to your account continue
                     </p>
-                    <div className="flex m-10">
-                        <Image src={NameIcon} alt="Name" className="md:w-1/6" />
-                        <div className="w-full">
-                            <p className="ml-3">FULL NAME</p>
-                            <input type="text" className="border-b-2 ml-3 py-1 w-full" placeholder="Mark Clarke" id="userName" />
-                        </div>
-                        <p className="text-red-600 self-center pl-1 text-xs">{userNameError}</p>
-                    </div>
                     <div className="flex m-10">
                         <Image src={EmailIcon} alt="Email" className="md:w-1/6"/>
                         <div className="w-full">
@@ -148,18 +142,20 @@ export default function SignUp() {
                         <p className="text-red-600 self-center pl-1 text-xs">{emailError}</p>
                     </div>
                     <div className="flex m-10">
-                        <Image src={PassIcon} alt="pass" className="md:w-1/6" />
+                        <Image src={PassIcon} priority={true} alt="pass" className="md:w-1/6" />
                         <div className="w-full">
                             <p className="ml-3">PASSWORD</p>
                             <input type="password" className="border-b-2 ml-3 py-1 w-full" placeholder="******" id="password" />
                         </div>
                         <p className="text-red-600 self-center pl-1 text-xs">{passwordError}</p>
                     </div>
-                    <button className="bg-violet-900 text-white rounded-lg w-full md:w-full md:max-w-lg h-10 lg:h-12" onClick={onSubmit}>Create an account</button>
-                    <div className="text-center mt-4">
-                        <p className="inline-block text-gray-500">Already have an account? </p>
-                        <a className="inline-block text-red-500 font-medium ml-1"> Sign in</a>
+                    <button className="text-violet-900 bg-violet-100 rounded-lg w-full md:w-full md:max-w-lg h-10 lg:h-12" onClick={onSubmit}>Sign in</button>
+                    <div className="text-center my-4">
+                        <p className="inline-block text-gray-500">Forgot password? </p>
                     </div>
+                    <Link href="/SignUp">
+                        <button className="bg-violet-900 text-white rounded-lg w-full md:w-full md:max-w-lg h-10 lg:h-12">Create an account</button>
+                    </Link>
                 </div>
             </div>
         </div>
