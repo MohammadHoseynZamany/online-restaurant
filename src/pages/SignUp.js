@@ -19,7 +19,6 @@ import SignUpToast from "@/components/SignUpToast"
 
 export default function SignUp() {
     const [cookies, setCookie, removeCookie] = useCookies(['access_token', 'refresh_token']);
-    console.log(cookies["access_token"])
 
     const hasWindow = typeof window !== 'undefined';
 
@@ -58,6 +57,8 @@ export default function SignUp() {
     const [userNameH, setUserName] = useState()
     const [emailH, setEmail] = useState()
 
+    const [toast, setToast] = useState({})
+
     function getElementValue(id){
         const val = document.getElementById(id).value
         return val
@@ -83,12 +84,19 @@ export default function SignUp() {
                 "http://127.0.0.1:8000/users/register/",
                 data
             )
-            console.log("response", res)
+            getRes(res)
         } catch(err){
             if (err.response){
                 setEmailEr(err.response.data.email)
                 setUserNameEr(err.response.data.full_name)
                 setPassEr(err.response.data.password)
+                setToast({
+                    display: true,
+                    title: "SignUp Failed",
+                    detail: "Your inputs was wrong",
+                    error: `${emailError? `Email: ${emailError}`:""} ${userNameError? `Email: ${userNameError}`:""} ${passwordError? `Email: ${passwordError}`:""}`,
+                    setToast: setToast
+                })
             }
         }
 
@@ -126,11 +134,20 @@ export default function SignUp() {
         }
     }
 
+    function getRes(res){
+        setToast({
+            display: true,
+            title: "SignUp is completed",
+            detail: "Please Open your mail box and verify your email and after that Login",
+            setToast: setToast
+        })
+    }
+
     return (
         <div className="block md:flex text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl font-semibold overflow-hidden">
             <Image src={signUpImage} alt="signUp" className="md:rounded-r-3xl md:rounded-b-none md:rounded-br-3xl rounded-b-3xl md:h-screen h-56 md:w-1/2 w-screen object-cover md:max-w-md" priority={true} />
             <div className="self-center flex justify-center">
-            <SignUpToast />
+            <SignUpToast props={toast} />
                 <div className="px-6 mt-6 w-svw md:w-auto md:ml-4 md:block mb-6">
                     <h2 className="text-3xl font-medium">
                         Create an account

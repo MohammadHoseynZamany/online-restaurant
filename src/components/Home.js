@@ -2,14 +2,14 @@
 
 import Category from "./Category"
 import Restaurant from "./Restaurant"
+import Food from "./Food"
+import HomeLoading from "./HomeLoading"
+
 import { useState, useEffect } from "react"
 import { useCookies } from 'react-cookie'
 import axios from "axios"
 
-import PopularCat from "@public/catPopular.png"
 import { FaGreaterThan } from "react-icons/fa6";
-import Food from "./Food"
-import HomeLoading from "./HomeLoading"
 
 
 export default function Home() {
@@ -72,11 +72,10 @@ export default function Home() {
     }
   }
 
-
   let showCategoriesList
   if (categoriesList !== "") {
     showCategoriesList = categoriesList.map((cat) => 
-    <Category key={categoriesList.indexOf(cat)} image={PopularCat} title={cat.name} options={cat.restaurant_count} />
+    <Category key={cat.id} image={cat.image} title={cat.name} options={cat.restaurant_count} />
     )
   }
 
@@ -101,7 +100,7 @@ export default function Home() {
                     <h2 className="font-bold">
                         Explore categories
                     </h2>
-                    <div className="flex text-violet-800">
+                    <div className="flex text-violet-800 cursor-pointer">
                         <p>
                             See all
                         </p>
@@ -119,7 +118,7 @@ export default function Home() {
                     <h2 className="font-bold">
                         Featured restaurants
                     </h2>
-                    <div className="flex text-violet-800">
+                    <div className="flex text-violet-800 cursor-pointer">
                         <p>
                             See all
                         </p>
@@ -128,19 +127,21 @@ export default function Home() {
                         </div>
                     </div>
                 </div>
-                <div className="grid grid-cols-6 md:grid-cols-3">
-                    {/* <div className="flex">
-                        <Restaurant image={BurgerKingRes} name="Burger king" rate="4.8" count="1,873" food="Burger" money={1} delivery="Free" distance="4.3 km" />
-                        <Restaurant image={BurgerKingRes} name="Burger king" rate="4.8" count="1,873" food="Burger" money={1} delivery="Free" distance="4.3 km" />
-                        <Restaurant image={BurgerKingRes} name="Burger king" rate="4.8" count="1,873" food="Burger" money={1} delivery="Free" distance="4.3 km" />
-                        
-                    </div>
-                    <div className="flex">
-                        <Restaurant image={BurgerKingRes} name="Burger king" rate="4.8" count="1,873" food="Burger" money={1} delivery="Free" distance="4.3 km" />
-                        <Restaurant image={BurgerKingRes} name="Burger king" rate="4.8" count="1,873" food="Burger" money={1} delivery="Free" distance="4.3 km" />
-                        <Restaurant image={BurgerKingRes} name="Burger king" rate="4.8" count="1,873" food="Burger" money={1} delivery="Free" distance="4.3 km" />
-                    </div> */}
+                <div className="grid grid-cols-6 md:grid-cols-3 overflow-x-auto w-[90vw] lg:w-[90vw] [&::-webkit-scrollbar]:hidden">
                     { showRestaurantsList || <HomeLoading authorize={aouth} /> }
+                </div>
+                <div className="flex justify-between my-[3vh] mx-[3vw]">
+                    <h2 className="font-bold">
+                        Foods
+                    </h2>
+                    <div className="flex text-violet-800 cursor-pointer">
+                        <p>
+                            See all
+                        </p>
+                        <div className="my-auto ml-2">
+                            <FaGreaterThan />
+                        </div>
+                    </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     { showFoodsList || <HomeLoading authorize={aouth} /> }

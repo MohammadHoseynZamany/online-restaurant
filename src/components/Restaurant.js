@@ -4,7 +4,6 @@ import { FaStar } from "react-icons/fa6";
 import { RiMoneyDollarBoxLine } from "react-icons/ri";
 import { CiForkAndKnife } from "react-icons/ci";
 import { MdMyLocation } from "react-icons/md";
-import { redirect } from "next/dist/server/api-utils";
 
 
 
