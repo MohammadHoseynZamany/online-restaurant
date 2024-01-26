@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useState, useEffect } from "react"
 import axios from "axios"
+import { useCookies } from 'react-cookie'
 
 // import require images
 import signupImage from "@public/signUp.png"
@@ -12,10 +13,13 @@ import PassIcon from "@public/password.png"
 
 //import global css
 import '@/app/globals.css'
+import SignUpToast from "@/components/SignUpToast"
 
 
 
 export default function SignUp() {
+    const [cookies, setCookie, removeCookie] = useCookies(['access_token', 'refresh_token']);
+    console.log(cookies["access_token"])
 
     const hasWindow = typeof window !== 'undefined';
 
@@ -126,6 +130,7 @@ export default function SignUp() {
         <div className="block md:flex text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl font-semibold overflow-hidden">
             <Image src={signUpImage} alt="signUp" className="md:rounded-r-3xl md:rounded-b-none md:rounded-br-3xl rounded-b-3xl md:h-screen h-56 md:w-1/2 w-screen object-cover md:max-w-md" priority={true} />
             <div className="self-center flex justify-center">
+            <SignUpToast />
                 <div className="px-6 mt-6 w-svw md:w-auto md:ml-4 md:block mb-6">
                     <h2 className="text-3xl font-medium">
                         Create an account
@@ -158,6 +163,7 @@ export default function SignUp() {
                         <p className="text-red-600 self-center pl-1 text-xs">{passwordError}</p>
                     </div>
                     <button className="bg-violet-900 text-white rounded-lg w-full md:w-full md:max-w-lg h-10 lg:h-12" onClick={onSubmit}>Create an account</button>
+
                     <div className="text-center mt-4">
                         <p className="inline-block text-gray-500">Already have an account? </p>
                         <Link href="/login" className="inline-block text-red-500 font-medium ml-1"> Sign in</Link>

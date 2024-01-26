@@ -1,6 +1,8 @@
 import Image from "next/image"
 import Link from "next/link"
 import { useState, useEffect } from "react"
+import { useCookies } from 'react-cookie'
+
 import axios from "axios"
 
 // import require images
@@ -8,15 +10,17 @@ import signupImage from "@public/signUp.png"
 import signupTabImage from "@public/signUpTab.png"
 import EmailIcon from "@public/Email.png"
 import PassIcon from "@public/password.png"
-import RootLayout from "@/app/layout"
+// import { cookies } from "next/headers"
 
 //import global css
 import '@/app/globals.css'
+import LoginToast from "@/components/LoginToast"
 
 
-export default function SignUp(props) {
+export default function SignUp() {
+    const [cookies, setCookie, removeCookie] = useCookies(['access_token', 'refresh_token']);
+
     const hasWindow = typeof window !== 'undefined';
-    console.log(props)
 
     function getWindowDimensions() {
         const width = hasWindow ? window.innerWidth : null;
@@ -29,6 +33,7 @@ export default function SignUp(props) {
 
     const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
     const [signUpImage, setImage] = useState(signupImage)
+    const [toast, setToast] = useState({})
 
     useEffect(() => {
         if (hasWindow) {
@@ -69,8 +74,6 @@ export default function SignUp(props) {
     const [passwordError, setPassEr] = useState()
 //save response data
     const [authorize, setAuthorize] = useState()
-    const [access, setAccess] = useState()
-    const [refresh, setRefresh] = useState()
 
 
     async function postData(data){
@@ -83,10 +86,17 @@ export default function SignUp(props) {
             })
         } catch(err){
             if (err.response){
+                console.log(err.response)
                 setEmailEr(err.response.data.email)
                 setPassEr(err.response.data.password)
                 setAuthorize(err.response.statusText)
-                console.log(authorize)
+                setToast({
+                    display: true,
+                    title: "Login Failed",
+                    detail: "Your input Email or Password was wrong or you don't verify your email",
+                    error: String(err.response.data.non_field_errors),
+                    setToast: setToast
+                })
             }
         }
 
@@ -115,17 +125,23 @@ export default function SignUp(props) {
         }
     }
 
-    async function getRes(res){
-        await setAccess(res.data.access)
-        await setRefresh(res.data.refresh)
-        await setAuthorize(res.statusText)
-        console.log(`${access}\n${refresh}\n${authorize}`)
+    function getRes(res){
+        setCookie("access_token", res.data.access, {path: "/"})
+        setCookie("refresh_token", res.data.refresh, {path: "/"})
+        setAuthorize(res.statusText)
+        setToast({
+            display: true,
+            title: "Login was Successfully",
+            detail: "Welcome to our online food ordering website! You have successfully logged in to your account. To browse our menu and place your order, enter the Home page",
+            setToast: setToast
+        })
     }
 
     return (
         <div className="block md:flex text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl font-semibold overflow-hidden">
             <Image src={signUpImage} alt="signUp" className="md:rounded-r-3xl md:rounded-b-none md:rounded-br-3xl rounded-b-3xl md:h-screen h-56 md:w-1/2 w-screen object-cover md:max-w-md" priority={true} />
             <div className="self-center flex justify-center">
+                <LoginToast props={toast}/>
                 <div className="px-6 mt-6 w-svw md:w-auto md:ml-4 md:block mb-6">
                     <h2 className="text-3xl font-medium">
                         Welcome!

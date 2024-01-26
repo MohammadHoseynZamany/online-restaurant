@@ -8,8 +8,8 @@ import { GrBike } from "react-icons/gr";
 
 export default function Food(props){
     return (
-        <div>
-            <Image src={props.image} alt={props.name} />
+        <div className="">
+            <Image src={props.image} alt={props.name} width={100} height={100} />
             <div>
                 <h2>{props.name}</h2>
                 <p>{props.delivery}</p>
@@ -21,7 +21,7 @@ export default function Food(props){
                 </div>
                 <div>
                     <CiForkAndKnife />
-                    <p>{props.name}</p>
+                    <p>{props.type}</p>
                 </div>
                 <div>
                     <GrBike />

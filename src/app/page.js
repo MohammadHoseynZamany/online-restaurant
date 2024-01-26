@@ -5,8 +5,12 @@ import Navigation from "@/components/Navigation";
 import { useState, useEffect } from "react"
 
 
+
+
+
 export default function Main() {
   const [showBody, setShowBody] = useState(true)
+
   useEffect(()=>{
     if (!showBody) {
       document.getElementById("body-container").style.display = "none"

@@ -12,7 +12,7 @@ export default function Restaurant(props){
     return (
         <div className="flex-1 flex mx-[2.5vw] w-[20vw]">
             <div className="bg-gray-100 rounded-lg">
-                <Image src={ props.image } alt={ props.name } />
+                <Image src={ props.image } alt={ props.name } width={100} height={100} />
             </div>
             <div>
                 <h2>{ props.name }</h2>
