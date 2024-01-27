@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 export default function HomeLoading(props) {
     if (props.authorize === true) {
         return (
@@ -13,9 +15,9 @@ export default function HomeLoading(props) {
                 <h2>
                     You Are Not Authorize 
                 </h2>
-                <h3>
+                <Link href="/login">
                     Please Login First
-                </h3>
+                </Link>
             </div>
         )
     }

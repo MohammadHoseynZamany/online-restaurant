@@ -1,5 +1,5 @@
-import Image from "next/image"
 import Link from "next/link"
+import Image from "next/image"
 import { useState, useEffect } from "react"
 import { useCookies } from 'react-cookie'
 
@@ -10,15 +10,14 @@ import signupImage from "@public/signUp.png"
 import signupTabImage from "@public/signUpTab.png"
 import EmailIcon from "@public/Email.png"
 import PassIcon from "@public/password.png"
-// import { cookies } from "next/headers"
 
 //import global css
 import '@/app/globals.css'
 import LoginToast from "@/components/LoginToast"
 
 
-export default function SignUp() {
-    const [cookies, setCookie, removeCookie] = useCookies(['access_token', 'refresh_token']);
+export default function Login() {
+    const [cookies, setCookie] = useCookies(['access_token', 'refresh_token']);
 
     const hasWindow = typeof window !== 'undefined';
 
@@ -153,7 +152,7 @@ export default function SignUp() {
                         <Image src={EmailIcon} alt="Email" className="md:w-1/6"/>
                         <div className="w-full">
                             <p className="ml-3">EMAIL ADDRESS</p>
-                            <input type="email" className="border-b-2 ml-3 py-1 w-full" placeholder="markclarke@gmail.com" id="email" />
+                            <input type="email" className="border-b-2 ml-3 py-1 w-full" placeholder="markclarke@gmail.com" id="email" onChange={inputFormData} />
                         </div>
                         <p className="text-red-600 self-center pl-1 text-xs">{emailError}</p>
                     </div>
@@ -161,13 +160,15 @@ export default function SignUp() {
                         <Image src={PassIcon} priority={true} alt="pass" className="md:w-1/6" />
                         <div className="w-full">
                             <p className="ml-3">PASSWORD</p>
-                            <input type="password" className="border-b-2 ml-3 py-1 w-full" placeholder="******" id="password" />
+                            <input type="password" className="border-b-2 ml-3 py-1 w-full" placeholder="******" id="password" onChange={inputFormData} />
                         </div>
                         <p className="text-red-600 self-center pl-1 text-xs">{passwordError}</p>
                     </div>
                     <button className="text-violet-900 bg-violet-100 rounded-lg w-full md:w-full md:max-w-lg h-10 lg:h-12" onClick={onSubmit}>Sign in</button>
                     <div className="text-center my-4">
-                        <p className="inline-block text-gray-500">Forgot password? </p>
+                        <Link href="/ForgotPassword" className="inline-block text-gray-500">
+                            Forgot password? 
+                        </Link>
                     </div>
                     <Link href="/SignUp">
                         <button className="bg-violet-900 text-white rounded-lg w-full md:w-full md:max-w-lg h-10 lg:h-12">Create an account</button>
