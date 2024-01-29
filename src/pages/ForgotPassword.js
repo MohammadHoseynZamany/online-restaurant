@@ -1,4 +1,3 @@
-import Link from "next/link"
 import Image from "next/image"
 import { useState, useEffect } from "react"
 import { useCookies } from 'react-cookie'
@@ -12,8 +11,7 @@ import EmailIcon from "@public/Email.png"
 
 //import global css
 import '@/app/globals.css'
-import LoginToast from "@/components/LoginToast"
-
+import ForgotToast from "@/components/ForgotToast"
 
 export default function ForgotPassword() {
     const [cookies, setCookie] = useCookies(['access_token', 'refresh_token']);
@@ -66,8 +64,6 @@ export default function ForgotPassword() {
         }
 
     const [emailError, setEmailEr] = useState()
-//save response data
-    const [authorize, setAuthorize] = useState()
 
 
     async function postData(data){
@@ -123,7 +119,7 @@ export default function ForgotPassword() {
         <div className="block md:flex text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl font-semibold overflow-hidden">
             <Image src={signUpImage} alt="signUp" className="md:rounded-r-3xl md:rounded-b-none md:rounded-br-3xl rounded-b-3xl md:h-screen h-56 md:w-1/2 w-screen object-cover md:max-w-md" priority={true} />
             <div className="self-center flex justify-center">
-                <LoginToast props={toast}/>
+                <ForgotToast props={toast}/>
                 <div className="px-6 mt-6 w-svw md:w-auto md:ml-4 md:block mb-6">
                     <h2 className="text-3xl font-medium">
                         Forgot Password

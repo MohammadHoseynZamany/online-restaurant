@@ -9,11 +9,11 @@ import { MdMyLocation } from "react-icons/md";
 
 export default function Restaurant(props){
     return (
-        <div className="flex-1 flex mx-[2.5vw] w-[20vw]">
-            <div className="bg-gray-100 rounded-lg">
-                <Image src={ props.image } alt={ props.name } width={100} height={100} />
+        <div className="flex-1 flex ml-[2.5vw] mr-[5vw] min-w-96 text-xs sm:text-sm md:text-md w-56 my-4">
+            <div className="bg-gray-100 rounded-lg mr-4">
+                <Image src={ props.image } alt={ props.name } width={100} height={100} className="w-[9vw]" />
             </div>
-            <div>
+            <div className="w-[15vw] min-w-24 hidden md:inline-block">
                 <h2>{ props.name }</h2>
                 <div className="flex">
                     <FaStar color="orange" className="m-auto" />

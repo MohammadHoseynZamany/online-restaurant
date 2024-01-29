@@ -23,25 +23,25 @@ export default function LeftSideBar(props){
                                 Nibble
                             </h2>
                         </div>
-                        <div className={`rounded-md pt-[1vh] pb-[1.2vh] pl-[1vw] mb-[2vh] ${props.mod === "home" ? chosesStyle : UnChosesStyle}`} onClick={()=> props.setMod("home")}>
+                        <div className={`cursor-pointer rounded-md pt-[1vh] pb-[1.2vh] pl-[1vw] mb-[2vh] ${props.mod === "home" ? chosesStyle : UnChosesStyle}`} onClick={()=> props.setMod("home")}>
                             <FaHome className="inline-block w-6 mr-[1vw]" alt="Home" color="gray"/>
                             <p className="lg:inline-block hidden">
                                 Home
                             </p>
                         </div>
-                        <div className={`rounded-md pt-[1vh] pb-[1.2vh] pl-[1vw] mb-[2vh] ${props.mod === "favorites" ? chosesStyle : UnChosesStyle}`} onClick={()=> props.setMod("favorites")}>
+                        <div className={`cursor-pointer rounded-md pt-[1vh] pb-[1.2vh] pl-[1vw] mb-[2vh] ${props.mod === "favorites" ? chosesStyle : UnChosesStyle}`} onClick={()=> props.setMod("favorites")}>
                             <Image src={Favourites} className="inline-block w-4 mr-[1vw]" alt="favourites"/>
                             <p className="lg:inline-block hidden">
                                 Favorites
                             </p>
                         </div>
-                        <div className={`rounded-md pt-[1vh] pb-[1.2vh] pl-[1vw] mb-[2vh] ${props.mod === "orders" ? chosesStyle : UnChosesStyle}`} onClick={()=> props.setMod("orders")}>
+                        <div className={`cursor-pointer rounded-md pt-[1vh] pb-[1.2vh] pl-[1vw] mb-[2vh] ${props.mod === "orders" ? chosesStyle : UnChosesStyle}`} onClick={()=> props.setMod("orders")}>
                             <Image src={Orders} className="inline-block w-6 mr-[1vw]" alt="orders"/>
                             <p className="lg:inline-block hidden">
                                 Orders
                             </p>
                         </div>
-                        <div className={`rounded-md pt-[1vh] pb-[1.2vh] pl-[1vw] mb-[2vh] ${props.mod === "settings" ? chosesStyle : UnChosesStyle}`} onClick={()=> props.setMod("settings")}>
+                        <div className={`cursor-pointer rounded-md pt-[1vh] pb-[1.2vh] pl-[1vw] mb-[2vh] ${props.mod === "settings" ? chosesStyle : UnChosesStyle}`} onClick={()=> props.setMod("settings")}>
                             <Image src={Settings} className="inline-block w-6 mr-[1vw]" alt="settings"/>
                             <p className="lg:inline-block hidden">
                                 Settings

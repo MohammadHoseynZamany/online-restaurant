@@ -90,7 +90,7 @@ export default function Favorites() {
                 </div>
             </div>
             {/* <div id="restaurants" className={`flex justify-between overflow-x-auto w-[90vw] lg:w-[90vw] [&::-webkit-scrollbar]:hidden ${mod === "restaurants"? "":"hidden"}`}> */}
-            <div id="restaurants" className={`grid grid-cols-2 md:grid-cols-3 w-[90vw] lg:w-[90vw] [&::-webkit-scrollbar]:hidden ${mod === "restaurants"? "":"hidden"}`}>
+            <div id="restaurants" className={`grid grid-cols-6 md:grid-cols-3 w-[90vw] lg:w-[90vw] [&::-webkit-scrollbar]:hidden ${mod === "restaurants"? "":"hidden"}`}>
                 { showRestaurantsList }
             </div>
             <div id="Dishes" className={`grid grid-cols-1 md:grid-cols-3 ${mod === "dishes"? "":"hidden"}`}>
