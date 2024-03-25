@@ -27,7 +27,7 @@ export default function Main() {
   return (
     <div className="flex">
       <LeftSideBar className="flex-1" mod={ mod } setMod={ setMod } />
-      <div className="flex-1 mt-3 mb-20 mx-[0.1vw]">
+      <div className="ml-[10vw] flex-1 mt-3 mb-20 mx-[0.1vw]">
         <Navigation closeOptions={showBody} setCloseOptions={setShowBody} />
         <div id="body-container">
           <div  className={mod === "home" ? "" : "hidden"}>
