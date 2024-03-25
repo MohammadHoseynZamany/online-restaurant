@@ -34,11 +34,11 @@ export default function PersonalInfo({ props }) {
     return (
         <div id="toast" className={`absolute justify-items-center align-center w-[100
         %] px-20 ${props.display ? "block" : "hidden"}`}>
-            <div class="max-w-xs bg-violet-100 border border-gray-200 rounded-xl shadow-lg p-4" role="alert">
-                <div class="flex">
-                    <div class="ms-4">
+            <div className="max-w-xs bg-violet-100 border border-gray-200 rounded-xl shadow-lg p-4" role="alert">
+                <div className="flex">
+                    <div className="ms-4">
                         <div className="flex">
-                            <h3 class="text-gray-800 font-semibold">
+                            <h3 className="text-gray-800 font-semibold">
                                 Personal Information
                             </h3>
                             <IoMdClose className="my-auto float-right ml-16 cursor-pointer" onClick={() => { props.setToast((toast) => ({
@@ -46,7 +46,7 @@ export default function PersonalInfo({ props }) {
                                 display: false
                             })) }} />
                         </div>
-                        <div class="mt-5 text-sm text-gray-600 mx-2 my-4">
+                        <div className="mt-5 text-sm text-gray-600 mx-2 my-4">
                             Profile image
                         </div>
                         <div>

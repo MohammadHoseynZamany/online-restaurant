@@ -4,12 +4,28 @@ import { FaStar } from "react-icons/fa6";
 import { RiMoneyDollarBoxLine } from "react-icons/ri";
 import { CiForkAndKnife } from "react-icons/ci";
 import { MdMyLocation } from "react-icons/md";
+import { redirect } from 'next/navigation'
+import { useEffect, useState } from "react";
+
 
 
 
 export default function Restaurant(props){
+    const [clicked, setClicked] = useState(false)
+    useEffect(()=>{
+        if (clicked){
+            redirect(`/restaurants/${props.id}`)
+            props.handleClick()
+            setClicked(false)
+        }
+    }, [clicked])
+    function handleClick(){
+        setClicked(true)
+    }
     return (
-        <div className="flex-1 flex ml-[2.5vw] mr-[5vw] min-w-96 text-xs sm:text-sm md:text-md w-56 my-4">
+        // <div className="flex-1 flex ml-[2.5vw] mr-[5vw] min-w-96 text-xs sm:text-sm md:text-md w-56 my-4 hover:cursor-pointer" onClick={props.handleClick}>
+        // <div className="flex-1 flex ml-[2.5vw] mr-[5vw] min-w-96 text-xs sm:text-sm md:text-md w-56 my-4 hover:cursor-pointer" onClick={()=>redirect(`/restaurants/${props.id}`)}>
+        <div className="flex-1 flex ml-[2.5vw] mr-[5vw] min-w-96 text-xs sm:text-sm md:text-md w-56 my-4 hover:cursor-pointer" onClick={()=>handleClick}>
             <div className="bg-gray-100 rounded-lg mr-4">
                 <Image src={ props.image } alt={ props.name } width={100} height={100} className="w-[9vw]" />
             </div>

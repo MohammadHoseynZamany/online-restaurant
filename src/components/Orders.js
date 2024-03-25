@@ -20,9 +20,7 @@ export default function Orders() {
             { "Authorization": `Bearer ${token}` }
         }
       )
-        // .then((res)=> res.json()).then((res) =>{
         .then((res) => {
-          console.log(res)
           setOrdersList(res)
         }
         )

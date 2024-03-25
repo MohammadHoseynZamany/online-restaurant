@@ -4,94 +4,58 @@ import Category from "./Category"
 import Restaurant from "./Restaurant"
 import Food from "./Food"
 import HomeLoading from "./HomeLoading"
+import * as services from "./services/services"
 
 import { useState, useEffect } from "react"
 import { useCookies } from 'react-cookie'
-import axios from "axios"
+import { redirect } from 'next/navigation'
+
 
 import { FaGreaterThan } from "react-icons/fa6";
 
 
 export default function Home() {
-  const [categoriesList, setCategoriesList] = useState("")
-  const [restaurantsList, setRestaurantsList] = useState("")
-  const [foodsList, setFoodsList] = useState("")
-  const [cookies] = useCookies(['access_token']);
+    const [categoriesList, setCategoriesList] = useState("")
+    const [restaurantsList, setRestaurantsList] = useState("")
+    const [foodsList, setFoodsList] = useState("")
+    const [cookies] = useCookies(['access_token']);
 
-  const[aouth, setAouth] = useState(true)
+    const [aouth, setAouth] = useState(true)
 
-  
-  useEffect(() => {
-    getCatData(cookies["access_token"])
-    getResData(cookies["access_token"])
-    getFoodData(cookies["access_token"])
-  }, [])
 
-  async function getCatData(access_token){
-    try{
-        const res = await axios.get(
-            "http://127.0.0.1:8000/categories/list/?size=6",
-            { headers:
-              { "Authorization": `Bearer ${ access_token }`}
-             }
+    useEffect(() => {
+        async function connectApi() {
+            const catData = await services.getCatData(cookies["access_token"], setAouth)
+            setCategoriesList(catData)
+            const resData = await services.getResData(cookies["access_token"], setAouth)
+            setRestaurantsList(resData)
+            const foodData = await services.getFoodData(cookies["access_token"], setAouth)
+            setFoodsList(foodData)
+        }
+        connectApi()
+    }, [])
+
+
+    let showCategoriesList
+    if (categoriesList !== "" && categoriesList !== undefined) {
+        showCategoriesList = categoriesList.map((cat) =>
+            <Category key={cat.id} image={cat.image} title={cat.name} options={cat.restaurant_count} />
         )
-        setCategoriesList(res.data)
-    } catch(err){
-        setAouth(false)
-        console.log(err)
     }
-  }
 
-  async function getResData(access_token){
-    try{
-        const res = await axios.get(
-            "http://127.0.0.1:8000/restaurants/list/?size=6",
-            { headers:
-              { "Authorization": `Bearer ${ access_token }`}
-             }
+    let showRestaurantsList
+    if (restaurantsList !== "") {
+        showRestaurantsList = restaurantsList.map((res) =>
+            <Restaurant key={res.id} id={res.id} image={res.image} name={res.name} rate={res.score} count="1,873" food={res.type} money={1} delivery={res.delivery_cost_string === "" ? res.delivery_cost_integer : res.delivery_cost_string} distance="4.3 km" handleClick={()=>redirect(`/restaurants/${res.id}`)} />
         )
-        setRestaurantsList(res.data.results)
-    } catch(err){
-        setAouth(false)
-        console.log(err)
     }
-  }
 
-  async function getFoodData(access_token){
-    try{
-        const res = await axios.get(
-            "http://127.0.0.1:8000/foods/list/?size=3",
-            { headers:
-              { "Authorization": `Bearer ${ access_token }`}
-             }
+    let showFoodsList
+    if (foodsList !== "") {
+        showFoodsList = foodsList.map((food) =>
+            <Food key={food.id} image={food.image} name={food.name} delivery="Free" rate={food.score} number={20} time={food.serving_time} type={food.type} />
         )
-        setFoodsList(res.data.results)
-    } catch(err){
-        setAouth(false)
-        console.log(err)
     }
-  }
-
-  let showCategoriesList
-  if (categoriesList !== "") {
-    showCategoriesList = categoriesList.map((cat) => 
-    <Category key={cat.id} image={cat.image} title={cat.name} options={cat.restaurant_count} />
-    )
-  }
-
-  let showRestaurantsList
-  if (restaurantsList !== "") {
-    showRestaurantsList = restaurantsList.map((res) => 
-    <Restaurant key={res.id} image={res.image} name={res.name} rate={res.score} count="1,873" food={res.type} money={1} delivery={res.delivery_cost_string === ""? res.delivery_cost_integer:res.delivery_cost_string} distance="4.3 km" />
-    )
-  }
-
-  let showFoodsList
-  if (foodsList !== "") {
-    showFoodsList = foodsList.map((food) => 
-    <Food key={food.id} image={food.image} name={food.name} delivery="Free" rate={food.score} number={20} time={food.serving_time} type={food.type} />
-    )
-  }
 
     return (
         <div>
@@ -110,7 +74,7 @@ export default function Home() {
                     </div>
                 </div>
                 <div className="flex justify-between overflow-x-auto w-[90vw] lg:w-[90vw] [&::-webkit-scrollbar]:hidden">
-                    { showCategoriesList || <HomeLoading authorize={aouth} /> }
+                    {showCategoriesList || <HomeLoading authorize={aouth} />}
                 </div>
             </div>
             <div>
@@ -128,7 +92,7 @@ export default function Home() {
                     </div>
                 </div>
                 <div className="grid grid-cols-6 md:grid-cols-3 overflow-x-auto w-[90vw] lg:w-[90vw] [&::-webkit-scrollbar]:hidden">
-                    { showRestaurantsList || <HomeLoading authorize={aouth} /> }
+                    {showRestaurantsList || <HomeLoading authorize={aouth} />}
                 </div>
                 <div className="flex justify-between my-[3vh] mx-[3vw]">
                     <h2 className="font-bold">
@@ -144,7 +108,7 @@ export default function Home() {
                     </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    { showFoodsList || <HomeLoading authorize={aouth} /> }
+                    {showFoodsList || <HomeLoading authorize={aouth} />}
                 </div>
             </div>
         </div>
