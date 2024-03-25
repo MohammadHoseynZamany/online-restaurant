@@ -15,9 +15,9 @@ import { FaGreaterThan } from "react-icons/fa6";
 
 
 export default function Home() {
-    const [categoriesList, setCategoriesList] = useState("")
-    const [restaurantsList, setRestaurantsList] = useState("")
-    const [foodsList, setFoodsList] = useState("")
+    const [categoriesList, setCategoriesList] = useState(undefined)
+    const [restaurantsList, setRestaurantsList] = useState(undefined)
+    const [foodsList, setFoodsList] = useState(undefined)
     const [cookies] = useCookies(['access_token']);
 
     const [aouth, setAouth] = useState(true)
@@ -37,21 +37,21 @@ export default function Home() {
 
 
     let showCategoriesList
-    if (categoriesList !== "" && categoriesList !== undefined) {
+    if (categoriesList !== undefined) {
         showCategoriesList = categoriesList.map((cat) =>
             <Category key={cat.id} image={cat.image} title={cat.name} options={cat.restaurant_count} />
         )
     }
 
     let showRestaurantsList
-    if (restaurantsList !== "") {
+    if (restaurantsList !== undefined) {
         showRestaurantsList = restaurantsList.map((res) =>
             <Restaurant key={res.id} id={res.id} image={res.image} name={res.name} rate={res.score} count="1,873" food={res.type} money={1} delivery={res.delivery_cost_string === "" ? res.delivery_cost_integer : res.delivery_cost_string} distance="4.3 km" handleClick={()=>redirect(`/restaurants/${res.id}`)} />
         )
     }
 
     let showFoodsList
-    if (foodsList !== "") {
+    if (foodsList !== undefined) {
         showFoodsList = foodsList.map((food) =>
             <Food key={food.id} image={food.image} name={food.name} delivery="Free" rate={food.score} number={20} time={food.serving_time} type={food.type} />
         )

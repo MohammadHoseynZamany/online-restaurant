@@ -25,9 +25,11 @@ export default function Food(props) {
                     alt="green iguana"
                 />
                 <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                        {props.name}
-                    </Typography>
+                    <div className="flex justify-center">
+                        <Typography gutterBottom variant="h5" component="div">
+                            {props.name}
+                        </Typography>
+                    </div>
                         <div className="text-center w-fit mx-auto">
                             <p className="bg-violet-300 w-32 m-auto rounded-lg">
                                 {`${props.delivery} Delivery`}
