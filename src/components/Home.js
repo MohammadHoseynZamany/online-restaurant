@@ -107,7 +107,7 @@ export default function Home() {
                         </div>
                     </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mx-4">
                     {showFoodsList || <HomeLoading authorize={aouth} />}
                 </div>
             </div>
