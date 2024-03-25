@@ -39,7 +39,9 @@ export default function Home() {
     let showCategoriesList
     if (categoriesList !== undefined) {
         showCategoriesList = categoriesList.map((cat) =>
-            <Category key={cat.id} image={cat.image} title={cat.name} options={cat.restaurant_count} />
+        <div key={cat.id} className="mx-4 my-2">
+            <Category image={cat.image} title={cat.name} options={cat.restaurant_count} />
+        </div>
         )
     }
 
@@ -61,7 +63,7 @@ export default function Home() {
         <div>
             <div>
                 <div className="flex justify-between my-[3vh] mx-[3vw]">
-                    <h2 className="font-bold">
+                    <h2 className="font-bold text-xl">
                         Explore categories
                     </h2>
                     <div className="flex text-violet-800 cursor-pointer">
@@ -73,13 +75,13 @@ export default function Home() {
                         </div>
                     </div>
                 </div>
-                <div className="flex justify-between overflow-x-auto w-[90vw] lg:w-[90vw] [&::-webkit-scrollbar]:hidden">
+                <div className="flex justify-around overflow-x-auto w-[90vw] pl-[2.5vw] lg:w-[90vw] [&::-webkit-scrollbar]:hidden">
                     {showCategoriesList || <HomeLoading authorize={aouth} />}
                 </div>
             </div>
             <div>
                 <div className="flex justify-between my-[3vh] mx-[3vw]">
-                    <h2 className="font-bold">
+                    <h2 className="font-bold text-xl">
                         Featured restaurants
                     </h2>
                     <div className="flex text-violet-800 cursor-pointer">
@@ -95,7 +97,7 @@ export default function Home() {
                     {showRestaurantsList || <HomeLoading authorize={aouth} />}
                 </div>
                 <div className="flex justify-between my-[3vh] mx-[3vw]">
-                    <h2 className="font-bold">
+                    <h2 className="font-bold text-xl">
                         Foods
                     </h2>
                     <div className="flex text-violet-800 cursor-pointer">

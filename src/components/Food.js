@@ -16,7 +16,7 @@ import { CardActionArea } from '@mui/material';
 export default function Food(props) {
     return (
         <Card sx={{ maxWidth: 345 }}
-            className="mx-auto my-2">
+            className="mx-auto my-2 rounded-2xl p-0">
             <CardActionArea className="inline-block">
                 <CardMedia
                     component="img"
