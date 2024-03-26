@@ -12,26 +12,13 @@ import SavedAddresses from "./SavedAddresses";
 
 
 export default function Settings() {
-    const [propsPersonal, setPropsPersonal] = useState({})
-    const [propsAdd, setPropsAdd] = useState({})
-    useEffect (()=>{
-        setPropsPersonal (
-            {
-                display: false,
-                setToast: setPropsPersonal
-            }
-        )
-        setPropsAdd (
-            {
-                display: false,
-                setToast: setPropsAdd
-            }
-        )
-    }, [])
+    const [propsPersonal, setPropsPersonal] = useState(false)
+    const [propsAdd, setPropsAdd] = useState(false)
+   
     return (
         <div className="mt-6 mx-10">
-            <PersonalInfo props={ propsPersonal } />
-            <SavedAddresses props={ propsAdd } />
+            <PersonalInfo props={ propsPersonal } display={propsPersonal} setDisplay={setPropsPersonal} />
+            <SavedAddresses display={propsAdd} setDisplay={setPropsAdd} />
             <div className="my-7">
                 <h1 className="font-bold text-2xl">
                     Settings

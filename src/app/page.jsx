@@ -4,8 +4,8 @@ import Home from "@/components/Home";
 import LeftSideBar from "@/components/LeftSideBar";
 import Navigation from "@/components/Navigation";
 import Orders from "@/components/Orders";
-import PersonalInfo from "@/components/PersonalInfo";
-import Settings from "@/components/Settings";
+import PersonalInfo from "@/components/settings/PersonalInfo";
+import Settings from "@/components/settings/Settings";
 import { useState, useEffect } from "react"
 
 

@@ -1,6 +1,5 @@
 import Image from "next/image"
 import NameImage from "@public/PName.png"
-import EmailImage from "@public/PEmail.png"
 import PhoneImage from "@public/PPhone.png"
 
 import { useForm } from "react-hook-form"
@@ -15,13 +14,13 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { getProfileData, updateProfileData } from "./services/services"
+import { getProfileData, updateProfileData } from "../services/services"
 import Alert from '@mui/material/Alert';
 import Avatar from '@mui/material/Avatar';
 
 
 
-export default function PersonalInfo({ props }) {
+export default function PersonalInfo(props) {
     const [cookies] = useCookies(['access_token']);
     const [showAlert, setShowAlert] = React.useState(false)
     const [alertData, setAlertData] = React.useState({status:"", message:""})
@@ -31,7 +30,6 @@ export default function PersonalInfo({ props }) {
         register,
         handleSubmit,
         reset,
-        watch
     } = useForm()
 
     React.useEffect(()=>{
@@ -46,10 +44,8 @@ export default function PersonalInfo({ props }) {
     }, [])
 
     const handleClose = () => {
-        props.setToast((toast) => ({
-            ...toast,
-            display: false
-        }))
+        props.setDisplay(false)
+        setShowAlert(false)
     };
 
     async function onSubmit(data) {
@@ -58,10 +54,7 @@ export default function PersonalInfo({ props }) {
             setAlertData({status:"success", message:"Profile updated successfully"})
             setShowAlert(true)
             setTimeout(()=>{
-                props.setToast((toast) => ({
-                    ...toast,
-                    display: false
-                }))
+                handleClose()
                 setShowAlert(false)
             }, 1000)
         } else{
@@ -70,13 +63,12 @@ export default function PersonalInfo({ props }) {
         }
     }
 
-    console.log(watch("avatar"))
 
     return (
         <React.Fragment>
 
             <Dialog
-                open={props.display}
+                open={props.display || false}
                 onClose={handleClose}
                 onSubmit={handleSubmit(onSubmit)}
                 PaperProps={{

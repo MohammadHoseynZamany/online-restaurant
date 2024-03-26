@@ -100,3 +100,37 @@ export async function updateProfileData(access_token, data){
         console.log(err)
     }
 }
+
+
+export async function getAddress(access_token){
+    try {
+        const res = await axios.get(
+            domain + "/users/settings/address-list/",
+            {
+                headers:
+                    { "Authorization": `Bearer ${access_token}` }
+            }
+        )
+        return (res.data)
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+
+export async function saveAddress(access_token, data){
+    try {
+        const res = await axios.post(
+            domain + "/users/settings/address-list/",
+            data,
+            {
+                headers:
+                    { "Authorization": `Bearer ${access_token}` }
+            },
+        )
+        console.log(res)
+        return (res.data)
+    } catch (err) {
+        console.log(err)
+    }
+}
