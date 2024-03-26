@@ -1,13 +1,12 @@
 import axios from "axios"
-import { useCookies } from 'react-cookie'
 
 
-
+const domain = "http://127.0.0.1:8000"
 
 export async function getCatData(access_token, setAouth){
     try{
         const res = await axios.get(
-            "http://127.0.0.1:8000/categories/list/?size=6",
+            domain + "/categories/list/?size=6",
             { headers:
               { "Authorization": `Bearer ${ access_token }`}
              }
@@ -20,10 +19,10 @@ export async function getCatData(access_token, setAouth){
   }
 
 
-  export async function getResData(access_token, setAouth) {
+  export async function getResData(access_token, setAuth) {
     try {
         const res = await axios.get(
-            "http://127.0.0.1:8000/restaurants/list/?size=6",
+            domain + "/restaurants/list/?size=6",
             {
                 headers:
                     { "Authorization": `Bearer ${access_token}` }
@@ -31,16 +30,16 @@ export async function getCatData(access_token, setAouth){
         )
         return (res.data.results)
     } catch (err) {
-        setAouth(false)
+        setAuth(false)
         console.log(err)
     }
 }
 
 
-export  async function getFoodData(access_token, setAouth) {
+export  async function getFoodData(access_token, setAuth) {
     try {
         const res = await axios.get(
-            "http://127.0.0.1:8000/foods/list/?size=3",
+            domain + "/foods/list/?size=3",
             {
                 headers:
                 { "Authorization": `Bearer ${access_token}` }
@@ -48,7 +47,7 @@ export  async function getFoodData(access_token, setAouth) {
             )
         return (res.data.results)
     } catch (err) {
-        setAouth(false)
+        setAuth(false)
         console.log(err)
     }
 }
@@ -57,7 +56,7 @@ export  async function getFoodData(access_token, setAouth) {
 export async function getResDetail(access_token, id) {
   try {
       const res = await axios.get(
-          `http://127.0.0.1:8000/restaurant/detail/${id}`,
+          domain + `/restaurant/detail/${id}`,
           {
               headers:
                   { "Authorization": `Bearer ${access_token}` }
@@ -67,4 +66,37 @@ export async function getResDetail(access_token, id) {
   } catch (err) {
       console.log(err)
   }
+}
+
+
+export async function getProfileData(access_token){
+    try {
+        const res = await axios.get(
+            domain + "/users/settings/personal-info/",
+            {
+                headers:
+                    { "Authorization": `Bearer ${access_token}` }
+            }
+        )
+        return (res.data)
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+
+export async function updateProfileData(access_token, data){
+    try {
+        const res = await axios.put(
+            domain + "/users/settings/personal-info/",
+            data,
+            {
+                headers:
+                    { "Authorization": `Bearer ${access_token}` }
+            },
+        )
+        return (res.data)
+    } catch (err) {
+        console.log(err)
+    }
 }
