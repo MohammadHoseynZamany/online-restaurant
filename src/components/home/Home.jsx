@@ -21,16 +21,16 @@ export default function Home() {
     const [foodsList, setFoodsList] = useState(undefined)
     const [cookies] = useCookies(['access_token']);
 
-    const [aouth, setAouth] = useState(true)
+    const [auth, setAuth] = useState(true)
 
 
     useEffect(() => {
         async function connectApi() {
-            const catData = await services.getCatData(cookies["access_token"], setAouth, 6)
+            const catData = await services.getCatData(cookies["access_token"], setAuth, 6)
             setCategoriesList(catData)
-            const resData = await services.getResData(cookies["access_token"], setAouth)
+            const resData = await services.getResData(cookies["access_token"], setAuth, 6)
             setRestaurantsList(resData)
-            const foodData = await services.getFoodData(cookies["access_token"], setAouth)
+            const foodData = await services.getFoodData(cookies["access_token"], setAuth)
             setFoodsList(foodData)
         }
         connectApi()
@@ -79,7 +79,7 @@ export default function Home() {
                     </Link>
                 </div>
                 <div className="flex justify-around overflow-x-auto w-[90vw] pl-[2.5vw] lg:w-[90vw] [&::-webkit-scrollbar]:hidden">
-                    {showCategoriesList || <HomeLoading authorize={aouth} />}
+                    {showCategoriesList || <HomeLoading authorize={auth} />}
                 </div>
             </div>
             <div>
@@ -87,17 +87,19 @@ export default function Home() {
                     <h2 className="font-bold text-xl">
                         Featured restaurants
                     </h2>
-                    <div className="flex text-violet-800 cursor-pointer animate-appearance-in">
-                        <p>
-                            See all
-                        </p>
-                        <div className="my-auto ml-2">
-                            <FaGreaterThan />
+                    <Link href="/restaurants">
+                        <div className="flex text-violet-800 cursor-pointer animate-appearance-in">
+                            <p>
+                                See all
+                            </p>
+                            <div className="my-auto ml-2">
+                                <FaGreaterThan />
+                            </div>
                         </div>
-                    </div>
+                    </Link>
                 </div>
                 <div className="grid grid-cols-6 md:grid-cols-3 overflow-x-auto w-[90vw] lg:w-[90vw] [&::-webkit-scrollbar]:hidden">
-                    {showRestaurantsList || <HomeLoading authorize={aouth} />}
+                    {showRestaurantsList || <HomeLoading authorize={auth} />}
                 </div>
                 <div className="flex justify-between my-[3vh] mx-[3vw]">
                     <h2 className="font-bold text-xl">
@@ -113,7 +115,7 @@ export default function Home() {
                     </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mx-4">
-                    {showFoodsList || <HomeLoading authorize={aouth} />}
+                    {showFoodsList || <HomeLoading authorize={auth} />}
                 </div>
             </div>
         </div>
