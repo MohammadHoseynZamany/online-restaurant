@@ -3,18 +3,20 @@ import axios from "axios"
 
 const domain = "http://127.0.0.1:8000"
 
-export async function getCatData(access_token, setAouth){
+export async function getCatData(access_token, setAuth, size){
     try{
         const res = await axios.get(
-            domain + "/categories/list/?size=6",
+            domain + `/categories/list/${size !== undefined ?`?size=${size}`: ""}`,
             { headers:
               { "Authorization": `Bearer ${ access_token }`}
              }
         )
         return res.data
     } catch(err){
-        setAouth(false)
         console.log(err)
+        if (setAuth !== undefined){
+            setAuth(false)
+        }
     }
   }
 

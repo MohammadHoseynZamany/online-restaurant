@@ -1,14 +1,15 @@
 'use client'
 
-import Category from "./Category"
-import Restaurant from "./Restaurant"
-import Food from "./Food"
+import Category from "../shared/Category"
+import Restaurant from "../shared/Restaurant"
+import Food from "../shared/Food"
 import HomeLoading from "./HomeLoading"
-import * as services from "./services/services"
+import * as services from "../services/services"
 
 import { useState, useEffect } from "react"
 import { useCookies } from 'react-cookie'
 import { redirect } from 'next/navigation'
+import Link from "next/link"
 
 
 import { FaGreaterThan } from "react-icons/fa6";
@@ -25,7 +26,7 @@ export default function Home() {
 
     useEffect(() => {
         async function connectApi() {
-            const catData = await services.getCatData(cookies["access_token"], setAouth)
+            const catData = await services.getCatData(cookies["access_token"], setAouth, 6)
             setCategoriesList(catData)
             const resData = await services.getResData(cookies["access_token"], setAouth)
             setRestaurantsList(resData)
@@ -39,16 +40,16 @@ export default function Home() {
     let showCategoriesList
     if (categoriesList !== undefined) {
         showCategoriesList = categoriesList.map((cat) =>
-        <div key={cat.id} className="mx-4 my-2">
-            <Category image={cat.image} title={cat.name} options={cat.restaurant_count} />
-        </div>
+            <div key={cat.id} className="mx-4 my-2">
+                <Category image={cat.image} title={cat.name} options={cat.restaurant_count} />
+            </div>
         )
     }
 
     let showRestaurantsList
     if (restaurantsList !== undefined) {
         showRestaurantsList = restaurantsList.map((res) =>
-            <Restaurant key={res.id} id={res.id} image={res.image} name={res.name} rate={res.score} count="1,873" food={res.type} money={1} delivery={res.delivery_cost_string === "" ? res.delivery_cost_integer : res.delivery_cost_string} distance="4.3 km" handleClick={()=>redirect(`/restaurants/${res.id}`)} />
+            <Restaurant key={res.id} id={res.id} image={res.image} name={res.name} rate={res.score} count="1,873" food={res.type} money={1} delivery={res.delivery_cost_string === "" ? res.delivery_cost_integer : res.delivery_cost_string} distance="4.3 km" handleClick={() => redirect(`/restaurants/${res.id}`)} />
         )
     }
 
@@ -66,14 +67,16 @@ export default function Home() {
                     <h2 className="font-bold text-xl">
                         Explore categories
                     </h2>
-                    <div className="flex text-violet-800 cursor-pointer">
-                        <p>
-                            See all
-                        </p>
-                        <div className="my-auto ml-2">
-                            <FaGreaterThan />
+                    <Link href="/categories" >
+                        <div className="flex text-violet-800 cursor-pointer animate-appearance-in">
+                            <p>
+                                See all
+                            </p>
+                            <div className="my-auto ml-2">
+                                <FaGreaterThan />
+                            </div>
                         </div>
-                    </div>
+                    </Link>
                 </div>
                 <div className="flex justify-around overflow-x-auto w-[90vw] pl-[2.5vw] lg:w-[90vw] [&::-webkit-scrollbar]:hidden">
                     {showCategoriesList || <HomeLoading authorize={aouth} />}
@@ -84,7 +87,7 @@ export default function Home() {
                     <h2 className="font-bold text-xl">
                         Featured restaurants
                     </h2>
-                    <div className="flex text-violet-800 cursor-pointer">
+                    <div className="flex text-violet-800 cursor-pointer animate-appearance-in">
                         <p>
                             See all
                         </p>
@@ -100,7 +103,7 @@ export default function Home() {
                     <h2 className="font-bold text-xl">
                         Foods
                     </h2>
-                    <div className="flex text-violet-800 cursor-pointer">
+                    <div className="flex text-violet-800 cursor-pointer animate-appearance-in">
                         <p>
                             See all
                         </p>

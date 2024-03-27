@@ -61,6 +61,7 @@ export default function SavedAddresses(props) {
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors }
     } = useForm()
 
@@ -116,6 +117,7 @@ export default function SavedAddresses(props) {
             setTimeout(() => {
                 handleClose()
                 setShowAlert(false)
+                reset()
             }, 1000)
         } else {
             setAlertData({ status: "error", message: "There was a problem on saving address" })

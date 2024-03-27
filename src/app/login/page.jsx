@@ -1,3 +1,5 @@
+'use client'
+
 import Link from "next/link"
 import Image from "next/image"
 import { useState, useEffect } from "react"
@@ -13,7 +15,7 @@ import PassIcon from "@public/password.png"
 
 //import global css
 import '@/app/globals.css'
-import LoginToast from "@/components/LoginToast"
+import LoginToast from "@/components/toasts/LoginToast"
 
 
 export default function Login() {
